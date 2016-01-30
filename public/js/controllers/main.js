@@ -1,22 +1,22 @@
-angular.module('todoController', [])
+angular.module('feedController', [])
 
-	// inject the Todo service factory into our controller
-	.controller('mainController', ['$scope','$http','Todos', function($scope, $http, Todos) {
+	// inject the Feed service factory into our controller
+	.controller('mainController', ['$scope','$http','Feeds', function($scope, $http, Feeds) {
 		$scope.formData = {};
 		$scope.loading = true;
 
 		// GET =====================================================================
-		// when landing on the page, get all todos and show them
-		// use the service to get all the todos
-		Todos.get()
+		// when landing on the page, get all feeds and show them
+		// use the service to get all the feeds
+		Feeds.get()
 			.success(function(data) {
-				$scope.todos = data;
+				$scope.feeds = data;
 				$scope.loading = false;
 			});
 
 		// CREATE ==================================================================
 		// when submitting the add form, send the text to the node API
-		$scope.createTodo = function() {
+		$scope.createFeed = function() {
 
 			// validate the formData to make sure that something is there
 			// if form is empty, nothing will happen
@@ -24,27 +24,27 @@ angular.module('todoController', [])
 				$scope.loading = true;
 
 				// call the create function from our service (returns a promise object)
-				Todos.create($scope.formData)
+				Feeds.create($scope.formData)
 
-					// if successful creation, call our get function to get all the new todos
+					// if successful creation, call our get function to get all the new feeds
 					.success(function(data) {
 						$scope.loading = false;
 						$scope.formData = {}; // clear the form so our user is ready to enter another
-						$scope.todos = data; // assign our new list of todos
+						$scope.feeds = data; // assign our new list of feeds
 					});
 			}
 		};
 
 		// DELETE ==================================================================
-		// delete a todo after checking it
-		$scope.deleteTodo = function(id) {
+		// delete a feed after checking it
+		$scope.deleteFeed= function(id) {
 			$scope.loading = true;
 
-			Todos.delete(id)
-				// if successful creation, call our get function to get all the new todos
+			Feeds.delete(id)
+				// if successful creation, call our get function to get all the new feeds
 				.success(function(data) {
 					$scope.loading = false;
-					$scope.todos = data; // assign our new list of todos
+					$scope.feeds = data; // assign our new list of feeds
 				});
 		};
 	}]);

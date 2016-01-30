@@ -1,52 +1,52 @@
-var Todo = require('./models/todo');
+var Feed = require('./models/feed');
 
-function getTodos(res){
-	Todo.find(function(err, todos) {
+function getFeeds(res){
+	Feed.find(function(err, feeds) {
 
 			// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 			if (err)
 				res.send(err)
 
-			res.json(todos); // return all todos in JSON format
+			res.json(feeds); // return all feeds in JSON format
 		});
 };
 
 module.exports = function(app) {
 
 	// api ---------------------------------------------------------------------
-	// get all todos
-	app.get('/api/todos', function(req, res) {
+	// get all feeds
+	app.get('/api/feeds', function(req, res) {
 
-		// use mongoose to get all todos in the database
-		getTodos(res);
+		// use mongoose to get all feeds in the database
+		getFeeds(res);
 	});
 
-	// create todo and send back all todos after creation
-	app.post('/api/todos', function(req, res) {
+	// create feed and send back all feeds after creation
+	app.post('/api/feeds', function(req, res) {
 
-		// create a todo, information comes from AJAX request from Angular
-		Todo.create({
+		// create a feed, information comes from AJAX request from Angular
+		Feed.create({
 			text : req.body.text,
 			done : false
-		}, function(err, todo) {
+		}, function(err, feed) {
 			if (err)
 				res.send(err);
 
-			// get and return all the todos after you create another
-			getTodos(res);
+			// get and return all the feeds after you create another
+			getFeeds(res);
 		});
 
 	});
 
-	// delete a todo
-	app.delete('/api/todos/:todo_id', function(req, res) {
-		Todo.remove({
-			_id : req.params.todo_id
-		}, function(err, todo) {
+	// delete a feed
+	app.delete('/api/feeds/:feed_id', function(req, res) {
+		Feed.remove({
+			_id : req.params.feed_id
+		}, function(err, feed) {
 			if (err)
 				res.send(err);
 
-			getTodos(res);
+			getFeeds(res);
 		});
 	});
 
