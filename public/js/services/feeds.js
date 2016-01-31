@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('feedService', [])
 
 	// super simple service

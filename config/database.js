@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
 
 	// the database url to connect

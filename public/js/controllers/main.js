@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('feedController', [])
 
 	// inject the Feed service factory into our controller
